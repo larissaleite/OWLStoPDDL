@@ -79,7 +79,7 @@ public class Main extends JPanel implements ActionListener {
 					log.append("Parsing the owl-s files \n\n");
 
 					try {
-						new CreatePDDL(file.getAbsolutePath());
+						new CreatePDDL(file.getAbsolutePath(), file.getName());
 						log.append("File successfully converted to PDDL" + "\n");
 					} catch (Exception ee) {
 						log.append("There was an error when converting the owls file" + "\n");

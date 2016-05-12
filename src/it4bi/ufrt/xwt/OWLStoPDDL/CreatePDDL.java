@@ -5,7 +5,7 @@ public class CreatePDDL {
 	private OWLSParser parser;
 	private String PDDLContent;
 	
-	public CreatePDDL(String filePath) {
+	public CreatePDDL(String filePath, String fileName) {
 		this.parser = new OWLSParser(filePath);
 		
 		this.defineAction();
@@ -13,7 +13,7 @@ public class CreatePDDL {
 		this.definePreconditions();
 		this.defineEffects();
 		
-		this.writeFile(filePath);
+		this.writeFile(filePath, fileName);
 	}
 	
 	private void defineAction() {
@@ -58,10 +58,13 @@ public class CreatePDDL {
 		System.out.println(effect);
 	}
 	
-	private void writeFile(String filePath) {
+	private void writeFile(String filePath, String fileName) {
 		PDDLFileWriter fileWriter = new PDDLFileWriter();
-		filePath = filePath.replace(".owls", ".pddl");
-		fileWriter.writePDDLFile(filePath, PDDLContent);
+		String p= filePath.substring(0, filePath.length()-(fileName.length()));
+		fileName = fileName.replace(".owls", ".pddl");
+		String path = p+fileName;
+		
+		fileWriter.writePDDLFile(path, PDDLContent);
 	}
 
 }
