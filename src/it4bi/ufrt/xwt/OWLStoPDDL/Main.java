@@ -19,7 +19,6 @@ public class Main extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-
 		/**
 		 * This class opens a standard file-requester to select an owls-file
 		 */
