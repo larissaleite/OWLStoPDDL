@@ -47,11 +47,16 @@ public class CreatePDDL {
 		String inputs = parser.extractProcessInput();
 		preConditions += inputs;
 
-		preConditions += parser.extractProcessPreConditions();
+		String processPreConditions = parser.extractProcessPreConditions();
+		if (processPreConditions.equals("")) {
+			System.out.println("vazio");
+		}
+		preConditions += processPreConditions;
 
 		if (checkAnd(preConditions)) {
 			preConditions = preConditions.replace(":precondition (and\n\t", ":precondition ");
 		} else {
+			preConditions = preConditions.substring(0, preConditions.lastIndexOf('\n'));
 			preConditions += ")";
 		}
 
@@ -72,6 +77,7 @@ public class CreatePDDL {
 		if (checkAnd(effect)) {
 			effect = effect.replace(":effect (and\n\t", ":effect ");
 		} else {
+			effect = effect.substring(0,  effect.lastIndexOf("\n"));
 			effect += ")"; // closing effects
 		}
 
