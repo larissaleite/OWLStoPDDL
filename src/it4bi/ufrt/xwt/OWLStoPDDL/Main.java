@@ -35,13 +35,17 @@ public class Main extends JPanel implements ActionListener {
 
 		// Create the open button.
 		//openButton = new JButton("Choose OWL-S file to convert to PDDL");
-		openButton = new JButton("Choose OWL-S file");
-		openButton.addActionListener(this);
+		openButton1 = new JButton("Choose first OWL-S file");
+		openButton1.addActionListener(this);
+		
+		openButton2 = new JButton("Choose second OWL-S file");
+		openButton2.addActionListener(this);
 
 		// For layout purposes, put the buttons in a separate panel
 		JPanel buttonPanel = new JPanel(); // use FlowLayout
-		buttonPanel.add(openButton);
-
+		buttonPanel.add(openButton1);		
+		buttonPanel.add(openButton2);
+		
 		// Add the buttons and the log to this panel.
 		add(buttonPanel, BorderLayout.PAGE_START);
 		add(logScrollPane, BorderLayout.CENTER);
@@ -50,7 +54,12 @@ public class Main extends JPanel implements ActionListener {
 	/**
 	 * When clicked on <code>openButton</code> a file chooser is opened.
 	 */
-	JButton openButton;
+	JButton openButton1;
+	
+	/**
+	 * When clicked on <code>openButton</code> a file chooser is opened.
+	 */
+	JButton openButton2;
 
 	/**
 	 * <code>log</code> holding the log entries.
@@ -61,34 +70,61 @@ public class Main extends JPanel implements ActionListener {
 	 * <code>fc</code> file chooser object.
 	 */
 	JFileChooser fc;
+	
+	File file1;
+	
+	File file2;
 
 	/**
 	 * Handler to perform the open button action, when clicked.
 	 */
 	public void actionPerformed(ActionEvent e) {
-
-		if (e.getSource() == openButton) {
-			int returnVal = fc.showOpenDialog(Main.this);
+		int returnVal;
+		
+		if (e.getSource() == openButton1) {
+			returnVal = fc.showOpenDialog(Main.this);
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File file = fc.getSelectedFile();
+				file1 = fc.getSelectedFile();
 
-				log.append("Opening: " + file.getName() + "\n\n");
-				log.append("Parsing the owl-s files \n\n");
+				log.append("Opening: " + file1.getName() + "\n\n");
 
 				try {
-					new ConceptsExtractor(file.getAbsolutePath());
 					
-					//new CreatePDDL(file.getAbsolutePath(), file.getName());
-					//log.append("File successfully converted to PDDL" + "\n");
 				} catch (Exception ee) {
-					log.append("There was an error when converting the owls file" + "\n");
-					System.out.println("Error during converting the owl-s file! \n" + ee);
+					log.append("There was an error when reading the owls file" + "\n");
+					System.out.println("Error during reading the owl-s file! \n" + ee);
 				}
 			} else {
 				log.append("Open command cancelled by user.\n");
 			}
+			
 			log.setCaretPosition(log.getDocument().getLength());
+
+		} else if (e.getSource() == openButton2) {
+			returnVal = fc.showOpenDialog(Main.this);
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				file2 = fc.getSelectedFile();
+				
+				log.append("Opening: " + file2.getName() + "\n\n");
+				
+				try {
+					
+				} catch (Exception ee) {
+					log.append("There was an error when reading the owls file" + "\n");
+					System.out.println("Error during reading the owl-s file! \n" + ee);
+				} 
+			} else {
+				log.append("Open command cancelled by user.\n");
+			}
+			
+			log.setCaretPosition(log.getDocument().getLength());
+		}
+		
+		if (file1 != null && file2 != null) {
+			System.out.println("creating extractor " + file1.getAbsolutePath() + "  --- "+ file2.getAbsolutePath());
+			new ConceptsExtractor(file1.getAbsolutePath(), file2.getAbsolutePath());
 		}
 	}
 
