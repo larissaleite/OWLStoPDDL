@@ -336,7 +336,6 @@ public class OWLSParser {
 		if (nodeList.getLength() != 0) {
 
 			for (int i = 0; i < nodeList.getLength(); i++) {
-				results += "\t(";
 				Node node = nodeList.item(i);
 
 				Node predicateNode = getNode(predicateExpression, node);
@@ -351,14 +350,14 @@ public class OWLSParser {
 					if (argument.getNodeType() == Node.ELEMENT_NODE) {
 						Element element = (Element) argument;
 						results += element.getAttribute("rdf:resource");
-						results_param = getParamFromText(results);
-						results += " ?" + results_param;
+						//results_param = getParamFromText(results);
+						//results += " ?" + results_param;
 						if (j < argumentList.getLength() - 1) {
 							results += " ";
 						}
 					}
 				}
-				results += ")";
+				//results += ")";
 			}
 
 			results = results.replace("http://127.0.0.1/", "");

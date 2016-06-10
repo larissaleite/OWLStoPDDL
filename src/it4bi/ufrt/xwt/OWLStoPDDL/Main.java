@@ -34,7 +34,8 @@ public class Main extends JPanel implements ActionListener {
 		fc = new JFileChooser("/tmp/workspace/OWLS2PDDL");
 
 		// Create the open button.
-		openButton = new JButton("Choose OWL-S file to convert to PDDL");
+		//openButton = new JButton("Choose OWL-S file to convert to PDDL");
+		openButton = new JButton("Choose OWL-S file");
 		openButton.addActionListener(this);
 
 		// For layout purposes, put the buttons in a separate panel
@@ -76,8 +77,10 @@ public class Main extends JPanel implements ActionListener {
 				log.append("Parsing the owl-s files \n\n");
 
 				try {
-					new CreatePDDL(file.getAbsolutePath(), file.getName());
-					log.append("File successfully converted to PDDL" + "\n");
+					new ConceptsExtractor(file.getAbsolutePath());
+					
+					//new CreatePDDL(file.getAbsolutePath(), file.getName());
+					//log.append("File successfully converted to PDDL" + "\n");
 				} catch (Exception ee) {
 					log.append("There was an error when converting the owls file" + "\n");
 					System.out.println("Error during converting the owl-s file! \n" + ee);
