@@ -48,9 +48,6 @@ public class CreatePDDL {
 		preConditions += inputs;
 
 		String processPreConditions = parser.extractProcessPreConditions();
-		if (processPreConditions.equals("")) {
-			System.out.println("vazio");
-		}
 		preConditions += processPreConditions;
 
 		if (checkAnd(preConditions)) {
